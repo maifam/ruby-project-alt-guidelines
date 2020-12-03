@@ -125,7 +125,6 @@ Exercise.create(name:"Curls", program_id: beginner_weights.id)
 Exercise.create(name:"Benchpress", program_id: beginner_weights.id)
 Exercise.create(name:"Shoulder Shrugs", program_id: beginner_weights.id)
 
-
 Exercise.create(name:"Curls", program_id: intermediate_weights.id)
 Exercise.create(name:"Benchpress", program_id: intermediate_weights.id)
 Exercise.create(name:"Shoulder Shrugs", program_id: intermediate_weights.id)

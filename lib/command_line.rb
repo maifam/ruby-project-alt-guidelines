@@ -1,7 +1,7 @@
 class CommandLine
 
     attr_reader :prompt 
-    attr_accessor :user, :program
+    attr_accessor :user, :program 
 
     def initialize 
         @prompt = TTY::Prompt.new
@@ -109,6 +109,20 @@ class CommandLine
             menu.choice "< Go Back", -> {browse_difficulty}
         end 
     end 
+
+    def see_previous_sessions
+        user.show_past_sessions
+        sleep(3.5)
+        home_page
+    end
+
+    def see_program_info
+        program.program_details
+        sleep(5)
+        puts "Great workout!"
+        home_page
+    end
+>>>>>>> fc8789350d285463c03a2121a1e4bb4e7eb512d9
 
     def advanced_list
         system 'clear'
