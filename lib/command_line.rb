@@ -122,7 +122,7 @@ class CommandLine
         puts "Great workout!"
         home_page
     end
->>>>>>> fc8789350d285463c03a2121a1e4bb4e7eb512d9
+
 
     def advanced_list
         system 'clear'
