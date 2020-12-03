@@ -71,10 +71,13 @@ class CommandLine
             menu.choice "Go back to home page", -> {home_page}
         end 
     end 
-    
+
+
     def see_previous_sessions
-        Session.all.map {|sesh| sesh.user}
-    end 
+        user.show_past_sessions
+        sleep(3.5)
+        home_page
+    end
 
     def log_out
         puts "Great session, today!"

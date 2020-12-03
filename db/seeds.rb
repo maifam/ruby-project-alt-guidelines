@@ -72,7 +72,7 @@ Session.create(user_id: bobby.id, program_id: advanced_weights.id, duration:60)
 Session.create(user_id: mai.id, program_id: advanced_yoga.id, duration:60)
 Session.create(user_id: jacob.id, program_id: intermediate_yoga.id, duration:45)
 Session.create(user_id: ashley.id, program_id: beginner_hiit.id, duration:30)
-Session.create(user_id: mai.id, program_id: weight.id, duration:45)
+Session.create(user_id: mai.id, program_id: intermediate_weights.id, duration:45)
 Session.create(user_id: jacob.id, program_id: beginner_hiit.id, duration:30)
 Session.create(user_id: caryn.id, program_id: intermediate_hiit.id, duration:45)
 
@@ -124,7 +124,7 @@ Exercise.create(name:"Balasana", program_id: advanced_yoga.id)
 # WEIGHT TRAIINING WORKOUTS 
 Exercise.create(name:"Curls", program_id: beginner_weights.id)
 Exercise.create(name:"Benchpress", program_id: beginner_weights.id)
-Exercise.create(name:"Shoulder Shrugs", program_id: beginner_weights.weight.id)
+Exercise.create(name:"Shoulder Shrugs", program_id: beginner_weights.id)
 
 Exercise.create(name:"Curls", program_id: intermediate_weights.id)
 Exercise.create(name:"Benchpress", program_id: intermediate_weights.id)

@@ -31,6 +31,15 @@ class User < ActiveRecord::Base
         else 
             User.create(username: user_name, password: pass_word)
         end 
-    end 
+    end
+    
+    def show_past_sessions
+        puts "These are your past workout sessions #{self.username}!"
+
+        self.sessions.each_with_index do |session, idx|
+            puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes!"
+        end
+
+    end
 
 end 
