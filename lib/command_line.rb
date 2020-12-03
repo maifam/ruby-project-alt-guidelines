@@ -39,23 +39,60 @@ class CommandLine
     end 
 
     def browse_all_programs
-        user.reload
-        system 'clear'
+        selection = prompt.select("", ["Beginner HIIT", "Intermediate HIIT", "Advanced HIIT", 
+            "Beginner Yoga", "Intermediate Yoga", "Advanced Yoga", 
+            "Beginner Weight-Training", "Intermediate Weight-Training", "Advanced Weight-Training"])
 
-        prompt.select("All Programs Available:") do |menu|
-            menu.choice "Beginner HIIT", -> {beginner_hiit}
-            menu.choice "Intermediate HIIT", -> {intermediate_hiit}
-            menu.choice "Advanced HIIT", -> {advanced_hiit}
-            menu.choice "Beginner Yoga", -> {beginner_yoga}
-            menu.choice "Intermediate Yoga", -> {intermediate_yoga}
-            menu.choice "Advanced Yoga", -> {advanced_yoga}
-            menu.choice "Beginner Weight-Training", -> {beginner_weights}
-            menu.choice "Intermediate Weight-Training", -> {intermediate_weights}
-            menu.choice "Advanced Weight-Training", -> {advanced_weights}
-            puts
-            menu.choice "Go back to home page", -> {home_page}
-        end 
-    end 
+        if selection == "Beginner HIIT"
+            beginner_hiit_session = Program.all.select { |prog| prog.name == "Beginner HIIT"}
+            Program.show_program_details(beginner_hiit_session)
+        elsif selection == "Intermediate HIIT"
+            intermediate_hiit_session = Program.all.select { |prog| prog.name == "Intermediate HIIT"}
+            show_program_details(intermediate_hiit)
+        elsif selection == "Advanced HIIT"
+            advanced_hiit_session = Program.all.select { |prog| prog.name == "Beginner HIIT"}
+            show_program_details(advanced_hiit)
+        elsif selection == "Beginner Yoga"
+            beginner_yoga_session = Program.all.select { |prog| prog.name == "Beginner Yoga"}
+            show_program_details(beginner_yoga)
+        elsif selection == "Intermediate Yoga"
+            intermediate_yoga_session = Program.all.select { |prog| prog.name == "Intermediate Yoga"}
+            show_program_details(intermediate_yoga)
+        elsif selection == "Advanced Yoga"
+            advanced_yoga_session = Program.all.select { |prog| prog.name == "Advanced Yoga"}
+            show_program_details(advanced_yoga)
+        elsif selection == "Beginner Weight-Training"
+            beginner_weights_session = Program.all.select { |prog| prog.name == "Beginner Weight-Training"}
+            show_program_details(beginner_weight)
+        elsif selection == "Intermediate Weight-Training"
+            intermediate_weights_session = Program.all.select { |prog| prog.name == "Intermediate Weight-Training"}
+            show_program_details(intermediate_weights)
+        elsif selection == "Advanced Weight-Training"
+            advanced_weights_session = Program.all.select { |prog| prog.name == "Advanced Weight-Training"}
+            show_program_details(advanced_weights)
+        else 
+            home_page
+        end
+    end
+
+    # def browse_all_programs
+    #     user.reload
+    #     system 'clear'
+
+    #     prompt.select("All Programs Available:") do |menu|
+    #         menu.choice "Beginner HIIT", -> {beginner_hiit}
+    #         menu.choice "Intermediate HIIT", -> {intermediate_hiit}
+    #         menu.choice "Advanced HIIT", -> {advanced_hiit}
+    #         menu.choice "Beginner Yoga", -> {beginner_yoga}
+    #         menu.choice "Intermediate Yoga", -> {intermediate_yoga}
+    #         menu.choice "Advanced Yoga", -> {advanced_yoga}
+    #         menu.choice "Beginner Weight-Training", -> {beginner_weights}
+    #         menu.choice "Intermediate Weight-Training", -> {intermediate_weights}
+    #         menu.choice "Advanced Weight-Training", -> {advanced_weights}
+    #         puts
+    #         menu.choice "Go back to home page", -> {home_page}
+    #     end 
+    # end 
 
     # def all_program_list
     #     program_list = Program.all.map { |prog| prog.name }
@@ -89,14 +126,14 @@ class CommandLine
         end 
     end 
 
-    # def beginner_hiit_session
+    def beginner_hiit_session
     
-    #     puts "You selected #{program.name}! Get ready to: #{program.goal}!"
-    #     sleep(2)
-    #     puts "For this workout you will do: "
-    #     Program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
+        puts "You selected #{program.name}! Get ready to: #{program.goal}!"
+        sleep(2)
+        puts "For this workout you will do: "
+        Program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
 
-    # end 
+    end 
 
     
     def intermediate_list
@@ -122,7 +159,6 @@ class CommandLine
         puts "Great workout!"
         home_page
     end
->>>>>>> fc8789350d285463c03a2121a1e4bb4e7eb512d9
 
     def advanced_list
         system 'clear'
