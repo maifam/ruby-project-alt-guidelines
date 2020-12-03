@@ -35,11 +35,9 @@ class User < ActiveRecord::Base
     
     def show_past_sessions
         puts "These are your past workout sessions #{self.username}!"
-
         self.sessions.each_with_index do |session, idx|
             puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes!"
         end
-
     end
 
 end 
