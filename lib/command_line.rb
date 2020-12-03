@@ -30,14 +30,53 @@ class CommandLine
         user.reload 
         system 'clear'
 
-        prompt.select("UPDATE THIS TAGLINE LATER") do |menu|
-            # menu.choice "See previous workouts", -> {see_previous_session}
-            # menu.choice "Browse all available programs", -> {browse_all_programs}
-            menu.choice "Sign out", -> {sign_out}
+        prompt.select("Ready to beast the day?") do |menu|
+            menu.choice "Browse all our available programs", -> {browse_all_programs}
+            menu.choice "Browse programs by difficulty", -> {browse_difficulty}
+            menu.choice "See my previous sessions", -> {see_previous_sessions}
+            menu.choice "Log out", -> {log_out}
         end 
     end 
 
-    def sign_out
-        puts "Good job, today. See you again, soon!"
+    def browse_all_programs
+        user.reload
+        system 'clear'
+
+        prompt.select("All Programs Available:") do |menu|
+            menu.choice "HIIT", -> {all_program_list[0]}
+            menu.choice "Yoga", -> {all_program_list[1]}
+            menu.choice "Weight-Training", -> {all_program_list[2]}
+            puts
+            menu.choice "Go back to home page", -> {home_page}
+        end 
+    end 
+
+    def all_program_list
+        program_list = Program.all.map { |prog| prog.name }
+    end 
+
+    def difficulty_list
+        difficulty_list = Program.all.select { |prog| prog.difficulty } 
+    end 
+
+    def browse_difficulty
+        user.reload
+        system 'clear'
+
+        prompt.select("All Difficulty Levels:") do |menu|
+            menu.choice "Beginner", -> {difficulty_list[0]}
+            menu.choice "Intermediate", -> {difficulty_list[1] }
+            menu.choice "Advanced", -> {difficulty_list[2]}
+            puts
+            menu.choice "Go back to home page", -> {home_page}
+        end 
+    end 
+    
+    def see_previous_sessions
+        Session.all.map {|sesh| sesh.user}
+    end 
+
+    def log_out
+        puts "Great session, today!"
     end 
 end 
