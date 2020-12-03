@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
         end
     end
 
-    def beginner_list 
-        Program.all.select {|prog| prog.difficulty = "Beginner"}
-    end 
+    # def beginner_list 
+    #     Program.all.select {|prog| prog.difficulty = "Beginner"}
+    # end 
 
 end 

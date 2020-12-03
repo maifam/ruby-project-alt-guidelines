@@ -41,46 +41,54 @@ class CommandLine
     def browse_all_programs
         selection = prompt.select("", ["Beginner HIIT", "Intermediate HIIT", "Advanced HIIT", 
             "Beginner Yoga", "Intermediate Yoga", "Advanced Yoga", 
-            "Beginner Weight-Training", "Intermediate Weight-Training", "Advanced Weight-Training"])
+            "Beginner Weight-Training", "Intermediate Weight-Training", "Advanced Weight-Training", "Go Back"])
 
         if selection == "Beginner HIIT"
-            beginner_hiit_session = Program.all.select { |prog| prog.name == "Beginner HIIT"}
-            Program.show_program_details(beginner_hiit_session)
+            beginner_hiit_session = Program.all.find { |prog| prog.name == "Beginner HIIT"}
+            # binding.pry
+            add_workout(beginner_hiit_session)
         elsif selection == "Intermediate HIIT"
-            intermediate_hiit_session = Program.all.select { |prog| prog.name == "Intermediate HIIT"}
-            show_program_details(intermediate_hiit)
+            intermediate_hiit_session = Program.all.find { |prog| prog.name == "Intermediate HIIT"}
+            add_workout(intermediate_hiit_session)
         elsif selection == "Advanced HIIT"
-            advanced_hiit_session = Program.all.select { |prog| prog.name == "Beginner HIIT"}
-            show_program_details(advanced_hiit)
+            advanced_hiit_session = Program.all.find{ |prog| prog.name == "Beginner HIIT"}
+            add_workout(advanced_hiit_session)
         elsif selection == "Beginner Yoga"
-            beginner_yoga_session = Program.all.select { |prog| prog.name == "Beginner Yoga"}
-            show_program_details(beginner_yoga)
+            beginner_yoga_session = Program.all.find{ |prog| prog.name == "Beginner Yoga"}
+            add_workout(beginner_yoga_session)
         elsif selection == "Intermediate Yoga"
-            intermediate_yoga_session = Program.all.select { |prog| prog.name == "Intermediate Yoga"}
-            show_program_details(intermediate_yoga)
+            intermediate_yoga_session = Program.all.find { |prog| prog.name == "Intermediate Yoga"}
+            add_workout(intermediate_yoga_session)
         elsif selection == "Advanced Yoga"
-            advanced_yoga_session = Program.all.select { |prog| prog.name == "Advanced Yoga"}
-            show_program_details(advanced_yoga)
+            advanced_yoga_session = Program.all.find { |prog| prog.name == "Advanced Yoga"}
+            add_workout(advanced_yoga_session)
         elsif selection == "Beginner Weight-Training"
-            beginner_weights_session = Program.all.select { |prog| prog.name == "Beginner Weight-Training"}
-            show_program_details(beginner_weight)
+            beginner_weights_session = Program.all.find { |prog| prog.name == "Beginner Weight-Training"}
+            add_workout(beginner_weights_session)
         elsif selection == "Intermediate Weight-Training"
-            intermediate_weights_session = Program.all.select { |prog| prog.name == "Intermediate Weight-Training"}
-            show_program_details(intermediate_weights)
+            intermediate_weights_session = Program.all.find{ |prog| prog.name == "Intermediate Weight-Training"}
+            add_workout(intermediate_weights_session)
         elsif selection == "Advanced Weight-Training"
-            advanced_weights_session = Program.all.select { |prog| prog.name == "Advanced Weight-Training"}
-            show_program_details(advanced_weights)
+            advanced_weights_session = Program.all.find{ |prog| prog.name == "Advanced Weight-Training"}
+            add_workout(advanced_weights_session)
         else 
             home_page
         end
     end
 
+    def add_workout(program) 
+        puts "You selected #{program.name}! Get ready to: #{program.goal}!"
+        sleep(2)
+        puts "For this workout you will do: "
+        puts program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
+        Session.create(user_id: user.id, program_id: program.id, duration: rand(30..60))
+    end
+
     # def browse_all_programs
     #     user.reload
     #     system 'clear'
-
     #     prompt.select("All Programs Available:") do |menu|
-    #         menu.choice "Beginner HIIT", -> {beginner_hiit}
+    #         menu.choice "Beginner HIIT", -> {beginner_hiit_session}
     #         menu.choice "Intermediate HIIT", -> {intermediate_hiit}
     #         menu.choice "Advanced HIIT", -> {advanced_hiit}
     #         menu.choice "Beginner Yoga", -> {beginner_yoga}
@@ -126,14 +134,14 @@ class CommandLine
         end 
     end 
 
-    def beginner_hiit_session
+    # def beginner_hiit_session
     
-        puts "You selected #{program.name}! Get ready to: #{program.goal}!"
-        sleep(2)
-        puts "For this workout you will do: "
-        Program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
+    #     puts "You selected #{program.name}! Get ready to: #{program.goal}!"
+    #     sleep(2)
+    #     puts "For this workout you will do: "
+    #     Program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
 
-    end 
+    # end 
 
     
     def intermediate_list
@@ -148,9 +156,15 @@ class CommandLine
     end 
 
     def see_previous_sessions
-        user.show_past_sessions
-        sleep(3.5)
-        home_page
+        if user.sessions.length == 0 
+            puts "You don't have any sessions yet!"
+            sleep(3)
+            home_page
+        else 
+            user.show_past_sessions
+            sleep(10)
+            home_page
+        end 
     end
 
     def see_program_info
@@ -159,10 +173,7 @@ class CommandLine
         puts "Great workout!"
         home_page
     end
-<<<<<<< HEAD
-=======
 
->>>>>>> 561953f7476b19fb7a33801f811da60490d8569d
 
     def advanced_list
         system 'clear'
@@ -188,5 +199,7 @@ class CommandLine
 
     def log_out
         puts "Great session, today!"
+        exit
     end 
+
 end 
