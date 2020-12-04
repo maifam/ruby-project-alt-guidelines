@@ -14,3 +14,4 @@ end
 commandline_instance.user = user_or_nil
 commandline_instance.home_page
 commandline_instance.browse_all_programs
+commandline_instance.browse_difficulty
