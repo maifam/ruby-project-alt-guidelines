@@ -2,7 +2,7 @@ class CommandLine
 
     attr_reader :prompt 
     attr_accessor :user, :program 
-
+    #$global_variable = 5
     def initialize 
         @prompt = TTY::Prompt.new
     end 
@@ -50,7 +50,7 @@ class CommandLine
             intermediate_hiit_session = Program.all.find { |prog| prog.name == "Intermediate HIIT"}
             add_workout(intermediate_hiit_session)
         elsif selection == "Advanced HIIT"
-            advanced_hiit_session = Program.all.find{ |prog| prog.name == "Beginner HIIT"}
+            advanced_hiit_session = Program.all.find{ |prog| prog.name == "Advanced HIIT"}
             add_workout(advanced_hiit_session)
         elsif selection == "Beginner Yoga"
             beginner_yoga_session = Program.all.find{ |prog| prog.name == "Beginner Yoga"}
@@ -79,8 +79,29 @@ class CommandLine
         puts "You selected #{program.name}! Get ready to: #{program.goal}!"
         sleep(2)
         puts "For this workout you will do: "
-        puts program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
-        Session.create(user_id: user.id, program_id: program.id, duration: rand(30..60))
+            if program.name.include?("Beginner")
+                puts program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(15..30))
+            elsif program.name.include?("Intermediate")
+                puts program.exercises.map{ |exer| "#{rand(10..20)} " + exer.name + "!" }.join(" -- ")
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(30..45))
+            elsif program.name.include?("Advanced")
+                puts program.exercises.map{ |exer| "#{rand(20..40)} " + exer.name + "!" }.join(" -- ")
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(45..60))
+            end
+        sleep(3)
+        what_now
+    end
+
+    def what_now
+        selection = prompt.select("What would you like to do now?", ["Do another workout!", "See completed workouts", "I'm done for the day"])
+        if selection == "Do another workout!"
+            home_page
+        elsif selection == "See completed workouts"
+            see_previous_sessions
+        else 
+            log_out
+        end
     end
 
     def browse_difficulty
@@ -174,7 +195,7 @@ class CommandLine
     end
 
     def log_out
-        puts "Great session, today!"
+        puts "Great session, today #{user.username}!"
         exit
     end 
 
