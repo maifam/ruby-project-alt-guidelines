@@ -6,6 +6,7 @@ commandline_instance.greet
 
 user_or_nil = commandline_instance.login_or_register
 
+
 until user_or_nil 
     user_or_nil = commandline_instance.login_or_register
 end 
