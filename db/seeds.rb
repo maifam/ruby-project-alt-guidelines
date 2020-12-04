@@ -181,8 +181,4 @@ Exercise.create(name:"Farmer's Walk", program_id: advanced_weights.id)
 # Exercise.create(name:"Farmer's Walk", program_id: advanced_weights.id)
 # Exercise.create(name:"Farmer's Walk", program_id: advanced_weights.id)
 # Exercise.create(name:"Farmer's Walk", program_id: advanced_weights.id)
-
-
-
-
 puts "Data Seeded!"
