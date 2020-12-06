@@ -1,17 +1,21 @@
 class CommandLine
 
-    attr_reader :prompt 
+    attr_reader :prompt, :pastel
     attr_accessor :user, :program 
 
     def initialize 
         @prompt = TTY::Prompt.new
+        @pastel = Pastel.new
     end 
 
-    def greet 
-        puts "Welcome to HomeFit!"
+    def greet                                           
+        system 'clear'
+        greeting = "Welcome to HOMEFit!"
+        puts greeting.center(65)
     end 
 
     def login_or_register
+        puts
         prompt.select("Do you want to login or register?") do |menu|
             menu.choice "Login", -> {login}
             menu.choice "Register", -> {register}
@@ -30,104 +34,23 @@ class CommandLine
         user.reload 
         system 'clear'
 
-        prompt.select("Ready to beast the day?") do |menu|
-            menu.choice "Browse all our available programs", -> {browse_all_programs}
-            menu.choice "Browse programs by difficulty", -> {browse_difficulty}
-            menu.choice "See my previous sessions", -> {see_previous_sessions}
+        prompt.select("ARE YOU READY TO BEAST THE DAY!?") do |menu|
+            menu.choice "Browse All Available Programs", -> {browse_all_programs}
+            menu.choice "Browse Programs by Difficulty Level", -> {browse_difficulty}
+            menu.choice "See My Previous Sessions", -> {see_previous_sessions}
             menu.choice "Log out", -> {log_out}
+            menu.choice "Delete My Account", -> {delete_account}
         end 
     end 
 
-    def browse_all_programs
-        prompt.select("Select program") do |menu| 
-            menu.choice "Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
-            menu.choice "Intermediate HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Advanced HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Beginner Yoga", -> {add_workout(beginner_hiit_session)}
-            ##### FIX!~
-            menu.choice "Beginner HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Beginner HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Beginner HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Beginner HIIT", -> {add_workout(beginner_hiit_session)}
-            menu.choice "Beginner HIIT", -> {add_workout(beginner_hiit_session)}
-        end            
-        #     "Intermediate HIIT", "Advanced HIIT", 
-        #     "Beginner Yoga", "Intermediate Yoga", "Advanced Yoga", 
-        #     "Beginner Weight-Training", "Intermediate Weight-Training", "Advanced Weight-Training", "Go Back"])
-
-        # if selection == "Beginner HIIT"
-        #     # beginner_hiit_session = Program.all.find { |prog| prog.name == "Beginner HIIT"}
-        #     add_workout(beginner_hiit_session)
-        # elsif selection == "Intermediate HIIT"
-        #     intermediate_hiit_session = Program.all.find { |prog| prog.name == "Intermediate HIIT"}
-        #     add_workout(intermediate_hiit_session)
-        # elsif selection == "Advanced HIIT"
-        #     advanced_hiit_session = Program.all.find{ |prog| prog.name == "Advanced HIIT"}
-        #     add_workout(advanced_hiit_session)
-        # elsif selection == "Beginner Yoga"
-        #     beginner_yoga_session = Program.all.find{ |prog| prog.name == "Beginner Yoga"}
-        #     add_workout(beginner_yoga_session)
-        # elsif selection == "Intermediate Yoga"
-        #     intermediate_yoga_session = Program.all.find { |prog| prog.name == "Intermediate Yoga"}
-        #     add_workout(intermediate_yoga_session)
-        # elsif selection == "Advanced Yoga"
-        #     advanced_yoga_session = Program.all.find { |prog| prog.name == "Advanced Yoga"}
-        #     add_workout(advanced_yoga_session)
-        # elsif selection == "Beginner Weight-Training"
-        #     beginner_weights_session = Program.all.find { |prog| prog.name == "Beginner Weight-Training"}
-        #     add_workout(beginner_weights_session)
-        # elsif selection == "Intermediate Weight-Training"
-        #     intermediate_weights_session = Program.all.find{ |prog| prog.name == "Intermediate Weight-Training"}
-        #     add_workout(intermediate_weights_session)
-        # elsif selection == "Advanced Weight-Training"
-        #     advanced_weights_session = Program.all.find{ |prog| prog.name == "Advanced Weight-Training"}
-        #     add_workout(advanced_weights_session)
-        # else 
-        #     home_page
-        # end
-        # user.reload
-        # system 'clear'
-
-        selection = prompt.select("", ["Beginner HIIT", "Intermediate HIIT", "Advanced HIIT", 
-            "Beginner Yoga", "Intermediate Yoga", "Advanced Yoga", 
-            "Beginner Weight-Training", "Intermediate Weight-Training", "Advanced Weight-Training", "Go Back"])
-
-        if selection == "Beginner HIIT"
-            beginner_hiit_session = Program.all.find { |prog| prog.name == "Beginner HIIT"}
-            add_workout(beginner_hiit_session)
-        elsif selection == "Intermediate HIIT"
-            intermediate_hiit_session = Program.all.find { |prog| prog.name == "Intermediate HIIT"}
-            add_workout(intermediate_hiit_session)
-        elsif selection == "Advanced HIIT"
-            advanced_hiit_session = Program.all.find{ |prog| prog.name == "Advanced HIIT"}
-            add_workout(advanced_hiit_session)
-        elsif selection == "Beginner Yoga"
-            beginner_yoga_session = Program.all.find{ |prog| prog.name == "Beginner Yoga"}
-            add_workout(beginner_yoga_session)
-        elsif selection == "Intermediate Yoga"
-            intermediate_yoga_session = Program.all.find { |prog| prog.name == "Intermediate Yoga"}
-            add_workout(intermediate_yoga_session)
-        elsif selection == "Advanced Yoga"
-            advanced_yoga_session = Program.all.find { |prog| prog.name == "Advanced Yoga"}
-            add_workout(advanced_yoga_session)
-        elsif selection == "Beginner Weight-Training"
-            beginner_weights_session = Program.all.find { |prog| prog.name == "Beginner Weight-Training"}
-            add_workout(beginner_weights_session)
-        elsif selection == "Intermediate Weight-Training"
-            intermediate_weights_session = Program.all.find{ |prog| prog.name == "Intermediate Weight-Training"}
-            add_workout(intermediate_weights_session)
-        elsif selection == "Advanced Weight-Training"
-            advanced_weights_session = Program.all.find{ |prog| prog.name == "Advanced Weight-Training"}
-            add_workout(advanced_weights_session)
-        else 
-            home_page
-        end
-    end
-
     def add_workout(program) 
-        puts "You selected #{program.name}! Get ready to: #{program.goal}!"
-        sleep(2)
-        puts "For this workout you will do: "
+        system 'clear'
+        puts "You selected #{program.name}!"
+        puts pastel.cyan("Get ready to: #{program.goal}!")
+        sleep(1.5)
+        puts
+        puts pastel.cyan.bold.underline("For this workout you will do:")
+        puts
             if program.name.include?("Beginner")
                 puts program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
                 Session.create(user_id: user.id, program_id: program.id, duration: rand(15..30))
@@ -139,11 +62,15 @@ class CommandLine
                 Session.create(user_id: user.id, program_id: program.id, duration: rand(45..60))
             end
         sleep(3)
+        puts
         what_now
     end
 
     def what_now
-        selection = prompt.select("What would you like to do now?", ["Do another workout!", "See completed workouts", "I'm done for the day"])
+        puts pastel.cyan.bold("GREAT JOB!!!")
+        puts
+        selection = prompt.select("What would you like to do now?", 
+            ["Do another workout!", "See completed workouts", "I'm done for the day"])
         if selection == "Do another workout!"
             home_page
         elsif selection == "See completed workouts"
@@ -153,111 +80,108 @@ class CommandLine
         end
     end
 
-    def browse_difficulty
-        user.reload
+    def browse_all_programs
         system 'clear'
+        prompt.select("Select a program to begin!") do |menu| 
+            menu.choice "Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
+            menu.choice "Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "Beginner Yoga", -> {add_workout(Program.beginner_yoga_session)}
+            menu.choice "Intermediate Yoga", -> {add_workout(Program.intermediate_yoga_session)}
+            menu.choice "Advanced Yoga", -> {add_workout(Program.advanced_yoga_session)}
+            menu.choice "Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
+            menu.choice "Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "<< Go Back", -> {home_page}
+        end            
+    end 
 
-        prompt.select("All Difficulty Levels:") do |menu|
+    def browse_difficulty
+        system 'clear'
+        prompt.select("Select a difficulty level:") do |menu|
             menu.choice "Beginner", -> {beginner_list}
             menu.choice "Intermediate", -> {intermediate_list}
             menu.choice "Advanced", -> {advanced_list}
             puts
-            menu.choice "< Go Back", -> {home_page}
+            menu.choice "<< Go Back", -> {home_page}
         end 
     end 
 
-    # def beginner_hiit_session
-    #     Program.all.find { |prog| prog.name == "Beginner HIIT"}
-    # end 
-
     def beginner_list
         system 'clear'
-
-        selection = prompt.select("Here are the Beginner Programs:", ["Beginner HIIT","Beginner Yoga", 
-            "Beginner Weight-Training", "Go Back"])
-    
-        if selection == "Beginner HIIT"
-            beginner_hiit_session = Program.all.find { |prog| prog.name == "Beginner HIIT"}
-            add_workout(beginner_hiit_session)
-        elsif selection == "Beginner Yoga"
-            beginner_yoga_session = Program.all.find{ |prog| prog.name == "Beginner Yoga"}
-            add_workout(beginner_yoga_session)
-        elsif selection == "Beginner Weight-Training"
-            beginner_weights_session = Program.all.find { |prog| prog.name == "Beginner Weight-Training"}
-            add_workout(beginner_weights_session)
-        else 
-            browse_difficulty
-        end
+        prompt.select("Select a Beginner Program to begin!") do |menu| 
+            menu.choice "Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
+            menu.choice "Beginner Yoga", -> {add_workout(Program.beginner_yoga_session)}
+            menu.choice "Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
+            menu.choice "<< Go Back", -> {browse_difficulty}
+        end 
     end
     
     def intermediate_list
         system 'clear'
-
-        selection = prompt.select("Here are the Intermediate Programs:", ["Intermediate HIIT","Intermediate Yoga", 
-            "Intermediate Weight-Training", "Go Back"])
-    
-        if selection == "Intermediate HIIT"
-            intermediate_hiit_session = Program.all.find { |prog| prog.name == "Intermediate HIIT"}
-            add_workout(intermediate_hiit_session)
-        elsif selection == "Intermediate Yoga"
-            intermediate_yoga_session = Program.all.find { |prog| prog.name == "Intermediate Yoga"}
-            add_workout(intermediate_yoga_session)
-        elsif selection == "Intermediate Weight-Training"
-            intermediate_weights_session = Program.all.find{ |prog| prog.name == "Intermediate Weight-Training"}
-            add_workout(intermediate_weights_session)
-        else 
-            browse_difficulty
+        prompt.select("Select an Intermediate Program to begin!") do |menu| 
+            menu.choice "Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "Intermediate Yoga", -> {add_workout(Program.intermediate_yoga_session)}
+            menu.choice "Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
       
     def advanced_list
         system 'clear'
-        selection = prompt.select("Here are the Advanced Programs:", ["Advanced HIIT", "Advanced Yoga", 
-        "Advanced Weight-Training", "Go Back"])
-    
-        if selection == "Advanced HIIT"
-            advanced_hiit_session = Program.all.find{ |prog| prog.name == "Beginner HIIT"}
-            add_workout(advanced_hiit_session)
-            sleep(3)
-        elsif selection == "Advanced Yoga"
-            advanced_yoga_session = Program.all.find { |prog| prog.name == "Advanced Yoga"}
-            add_workout(advanced_yoga_session)
-        elsif selection == "Advanced Weight-Training"
-            advanced_weights_session = Program.all.find{ |prog| prog.name == "Advanced Weight-Training"}
-            add_workout(advanced_weights_session)
-        else 
-            browse_difficulty
+        prompt.select("Select an Advanced Program to begin!") do |menu| 
+            menu.choice "Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "Advanced Yoga", -> {add_workout(Program.advanced_yoga_session)}
+            menu.choice "Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
 
     def see_previous_sessions
-
+        user.reload
         system 'clear'
         if user.sessions.length == 0 
-            puts "You don't have any sessions yet!"
+            puts pastel.blue("You don't have any sessions yet!")
             sleep(3)
             home_page
         else 
             user.show_past_sessions
         end 
+        delete_previous_sessions
+    end 
 
-        puts 
+    def delete_previous_sessions
+        puts
         puts "Do you want to delete your sessions? (Enter Y/N)"
         answer = gets.chomp
 
         if answer == "y" || answer == "Y"
             user.sessions.destroy_all
-            puts "You've deleted all your sessions!"
+            puts
+            puts "You've deleted all your sessions."
             sleep(2)
             home_page
         else answer == "n" || answer == 'N'
+            puts "You've choosen to keep all your sessions."
+            sleep(2)
             home_page
         end 
     end
 
     def log_out
-        puts "Great session, today #{user.username}!"
+        puts "Great session today, #{user.username}!!!!"
         exit
     end 
 
+    def delete_account
+        selection = prompt.select("Are You SURE You Want to Delete Your Account with HOMEFit?", 
+        ["Yes", "No"])
+        if selection == "Yes"
+            puts "We are sorry to see you go!"
+            user.destroy
+            exit
+        else
+            home_page
+        end
+    end
 end 

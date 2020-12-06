@@ -17,6 +17,7 @@ GEM
     concurrent-ruby (1.1.7)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
+    gemoji (3.0.1)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -64,6 +65,8 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 5.2)
   faker
+  gemoji
+  pastel
   pry
   require_all
   sinatra-activerecord
