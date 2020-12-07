@@ -53,13 +53,13 @@ class CommandLine
         puts
             if program.name.include?("Beginner")
                 puts program.exercises.map{ |exer| "#{rand(5..10)} " + exer.name + "!" }.join(" -- ")
-                Session.create(user_id: user.id, program_id: program.id, duration: rand(15..30))
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(15..30), time: Time.now)
             elsif program.name.include?("Intermediate")
                 puts program.exercises.map{ |exer| "#{rand(10..20)} " + exer.name + "!" }.join(" -- ")
-                Session.create(user_id: user.id, program_id: program.id, duration: rand(30..45))
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(30..45), time: Time.now)
             elsif program.name.include?("Advanced")
                 puts program.exercises.map{ |exer| "#{rand(20..40)} " + exer.name + "!" }.join(" -- ")
-                Session.create(user_id: user.id, program_id: program.id, duration: rand(45..60))
+                Session.create(user_id: user.id, program_id: program.id, duration: rand(45..60), time: Time.now)
             end
         sleep(3)
         puts

@@ -3,12 +3,6 @@ class User < ActiveRecord::Base
     has_many :sessions
     has_many :programs, through: :sessions
 
-    attr_reader :prompt
-
-    def initialize 
-        @prompt = TTY::Prompt.new
-    end 
-    
     def self.login_user
         puts "Please enter your username"
         user_name = gets.chomp
@@ -59,7 +53,7 @@ class User < ActiveRecord::Base
         puts "These are your past workout sessions, #{self.username}!"
         puts
         self.sessions.each_with_index do |session, idx|
-            puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes!"
+            puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}"
         end
     end
 end 
