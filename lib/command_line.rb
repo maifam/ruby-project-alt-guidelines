@@ -28,6 +28,7 @@ class CommandLine
         ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝         ██║   ██║   ██║    ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██╔══╝  ██║   ██║   
         ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗       ██║   ╚██████╔╝    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██║     ██║   ██║   
          ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝       ╚═╝    ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝   ╚═╝"))
+         puts emojis.center(150)
     end 
 
     def login_or_register
@@ -100,14 +101,14 @@ class CommandLine
         system 'clear'
         prompt.select("Select a program to begin!") do |menu| 
             menu.choice "🏃Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
-            menu.choice "🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
-            menu.choice "🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
-            menu.choice "🧘 Beginner Pilates", -> {add_workout(Program.beginner_yoga_session)}
-            menu.choice "🧘 Intermediate Pilates", -> {add_workout(Program.intermediate_yoga_session)}
-            menu.choice "🧘 Advanced Pilates", -> {add_workout(Program.advanced_yoga_session)}
+            menu.choice "🏃🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "🏃🏃🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "🧘Beginner Pilates", -> {add_workout(Program.beginner_pilates_session)}
+            menu.choice "🧘🧘Intermediate Pilates", -> {add_workout(Program.intermediate_pilates_session)}
+            menu.choice "🧘🧘🧘Advanced Pilates", -> {add_workout(Program.advanced_pilates_session)}
             menu.choice "🏋️ Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
-            menu.choice "🏋️ Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
-            menu.choice "🏋️ Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "🏋️🏋️ Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "🏋️🏋️🏋️ Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
             menu.choice "<< Go Back", -> {home_page}
         end            
     end 
@@ -127,8 +128,8 @@ class CommandLine
         system 'clear'
         prompt.select("Select a Beginner Program to begin!") do |menu| 
             menu.choice "🏃Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
-            menu.choice "🧘‍Beginner Pilates", -> {add_workout(Program.beginner_yoga_session)}
-            menu.choice "🏋️Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
+            menu.choice "🧘‍Beginner Pilates", -> {add_workout(Program.beginner_pilates_session)}
+            menu.choice "🏋️ Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
@@ -136,9 +137,9 @@ class CommandLine
     def intermediate_list
         system 'clear'
         prompt.select("Select an Intermediate Program to begin!") do |menu| 
-            menu.choice "🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
-            menu.choice "🧘‍Intermediate Pilates", -> {add_workout(Program.intermediate_yoga_session)}
-            menu.choice "🏋️Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "🏃🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "🧘‍🧘Intermediate Pilates", -> {add_workout(Program.intermediate_pilates_session)}
+            menu.choice "🏋️🏋️ Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
@@ -146,9 +147,9 @@ class CommandLine
     def advanced_list
         system 'clear'
         prompt.select("Select an Advanced Program to begin!") do |menu| 
-            menu.choice "🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
-            menu.choice "🧘‍Advanced Pilates", -> {add_workout(Program.advanced_yoga_session)}
-            menu.choice "🏋️Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "🏃🏃🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "🧘🧘🧘‍Advanced Pilates", -> {add_workout(Program.advanced_pilates_session)}
+            menu.choice "🏋️🏋️🏋️ Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
@@ -193,7 +194,7 @@ class CommandLine
         selection = prompt.select("Are You SURE You Want to Delete Your Account with HOMEFit?", 
         ["Yes", "No"])
         if selection == "Yes"
-            puts "We are sorry to see you go!"
+            flashing_effect("We are sorry to see you go!")
             user.destroy
             exit
         else
