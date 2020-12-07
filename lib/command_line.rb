@@ -19,7 +19,8 @@ class CommandLine
     def greet
         system 'clear' 
         # signin_sound_effect
-        puts ":muscle:" 
+        emojis = "💪" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" +  "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "💪"
+        puts emojis.center(150)
         puts typing_effect(pastel.red("
         ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗    ████████╗ ██████╗     ██╗  ██╗ ██████╗ ███╗   ███╗███████╗███████╗██╗████████╗
         ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝    ╚══██╔══╝██╔═══██╗    ██║  ██║██╔═══██╗████╗ ████║██╔════╝██╔════╝██║╚══██╔══╝
@@ -49,7 +50,7 @@ class CommandLine
         user.reload 
         system 'clear'
 
-        prompt.select("ARE YOU READY TO BEAST THE DAY!?") do |menu|
+        prompt.select(pastel.cyan("ARE YOU READY TO BEAST THE DAY!?")) do |menu|
             menu.choice "Browse All Available Programs", -> {browse_all_programs}
             menu.choice "Browse Programs by Difficulty Level", -> {browse_difficulty}
             menu.choice "See My Previous Sessions", -> {see_previous_sessions}
@@ -61,7 +62,7 @@ class CommandLine
     def add_workout(program) 
         system 'clear'
         puts "You selected #{program.name}!"
-        puts pastel.cyan("Get ready to: #{program.goal}!")
+        puts pastel.cyan("Get ready to #{program.goal}!")
         sleep(1.5)
         puts
         puts pastel.cyan.bold.underline("For this workout you will do:")
@@ -82,7 +83,7 @@ class CommandLine
     end
 
     def what_now
-        puts pastel.cyan.bold("GREAT JOB!!!")
+        puts pastel.cyan.bold("💪 GREAT JOB!!! 💪  " )
         puts
         selection = prompt.select("What would you like to do now?", 
             ["Do another workout!", "See completed workouts", "I'm done for the day"])
@@ -98,15 +99,15 @@ class CommandLine
     def browse_all_programs
         system 'clear'
         prompt.select("Select a program to begin!") do |menu| 
-            menu.choice "Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
-            menu.choice "Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
-            menu.choice "Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
-            menu.choice "Beginner Yoga", -> {add_workout(Program.beginner_yoga_session)}
-            menu.choice "Intermediate Yoga", -> {add_workout(Program.intermediate_yoga_session)}
-            menu.choice "Advanced Yoga", -> {add_workout(Program.advanced_yoga_session)}
-            menu.choice "Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
-            menu.choice "Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
-            menu.choice "Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "🏃Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
+            menu.choice "🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "🧘 Beginner Pilates", -> {add_workout(Program.beginner_yoga_session)}
+            menu.choice "🧘 Intermediate Pilates", -> {add_workout(Program.intermediate_yoga_session)}
+            menu.choice "🧘 Advanced Pilates", -> {add_workout(Program.advanced_yoga_session)}
+            menu.choice "🏋️ Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
+            menu.choice "🏋️ Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "🏋️ Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
             menu.choice "<< Go Back", -> {home_page}
         end            
     end 
@@ -125,9 +126,9 @@ class CommandLine
     def beginner_list
         system 'clear'
         prompt.select("Select a Beginner Program to begin!") do |menu| 
-            menu.choice "Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
-            menu.choice "Beginner Yoga", -> {add_workout(Program.beginner_yoga_session)}
-            menu.choice "Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
+            menu.choice "🏃Beginner HIIT", -> {add_workout(Program.beginner_hiit_session)}
+            menu.choice "🧘‍Beginner Pilates", -> {add_workout(Program.beginner_yoga_session)}
+            menu.choice "🏋️Beginner Weight-Training", -> {add_workout(Program.beginner_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
@@ -135,9 +136,9 @@ class CommandLine
     def intermediate_list
         system 'clear'
         prompt.select("Select an Intermediate Program to begin!") do |menu| 
-            menu.choice "Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
-            menu.choice "Intermediate Yoga", -> {add_workout(Program.intermediate_yoga_session)}
-            menu.choice "Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
+            menu.choice "🏃Intermediate HIIT", -> {add_workout(Program.intermediate_hiit_session)}
+            menu.choice "🧘‍Intermediate Pilates", -> {add_workout(Program.intermediate_yoga_session)}
+            menu.choice "🏋️Intermediate Weight-Training", -> {add_workout(Program.intermediate_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end
@@ -145,9 +146,9 @@ class CommandLine
     def advanced_list
         system 'clear'
         prompt.select("Select an Advanced Program to begin!") do |menu| 
-            menu.choice "Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
-            menu.choice "Advanced Yoga", -> {add_workout(Program.advanced_yoga_session)}
-            menu.choice "Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
+            menu.choice "🏃Advanced HIIT", -> {add_workout(Program.advanced_hiit_session)}
+            menu.choice "🧘‍Advanced Pilates", -> {add_workout(Program.advanced_yoga_session)}
+            menu.choice "🏋️Advanced Weight-Training", -> {add_workout(Program.advanced_weight_session)}
             menu.choice "<< Go Back", -> {browse_difficulty}
         end 
     end

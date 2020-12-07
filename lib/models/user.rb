@@ -5,12 +5,6 @@ class User < ActiveRecord::Base
     has_many :sessions
     has_many :programs, through: :sessions
 
-    attr_reader :pastel
-
-    def initialize
-        # @prompt = TTY::Prompt.new
-        @pastel = Pastel.new
-    end
 
     def self.login_user
         puts "Please enter your username"
@@ -60,10 +54,10 @@ class User < ActiveRecord::Base
     
     def show_past_sessions
         
-        flashing_effect("These are your past workout sessions, #{self.username}!")
+        flashing_effect("Your past workout sessions, #{self.username} 💪")
         puts
         self.sessions.each_with_index do |session, idx|
-            puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}"
+            typing_effect("#{idx + 1}) #{session.program.name} for a total of #{session.duration} minutes on #{session.time.asctime}")
         end
     end
 
@@ -76,5 +70,13 @@ class User < ActiveRecord::Base
           end
           print ""
           print string
+    end
+
+    def typing_effect(string)
+        string.split("").each do |c|
+            print c 
+            sleep(0.0047)
+        end
+        puts ""
     end
 end 
