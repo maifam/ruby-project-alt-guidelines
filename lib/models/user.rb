@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
     end
     
     def show_past_sessions
-        
         flashing_effect("Your past workout sessions, #{self.username} 💪")
         puts
         self.sessions.each_with_index do |session, idx|
