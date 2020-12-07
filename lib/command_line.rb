@@ -18,7 +18,7 @@ class CommandLine
     
     def greet
         system 'clear' 
-        signin_sound_effect
+        #signin_sound_effect
         emojis = "💪" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" +  "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "💪"
         puts emojis.center(150)
         puts typing_effect(pastel.red("

@@ -1,4 +1,4 @@
-
+require 'highline/import'
 class User < ActiveRecord::Base
 
     has_many :sessions
@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
             puts "You have to enter something for a username!"
             self.login_user 
         else
-            puts 'Please enter your password:'
-            passWord = gets.chomp
+            passWord = ask("Enter password: ") { |q| q.echo = "*" }
             passWord = User.find_by(password: passWord)
             if passWord == nil 
                 puts "Wrong password, please try to log in again"
@@ -41,8 +40,7 @@ class User < ActiveRecord::Base
             puts "You have to enter something for a username!"
             self.register_user
         else 
-            puts "Please enter a password"
-            passWord = gets.chomp
+            passWord = ask("Enter password: ") { |q| q.echo = "*" }
             if passWord.length == 0
                 puts "Invalid Password!"
                 self.register_user
