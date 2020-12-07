@@ -10,4 +10,5 @@ gem "faker"
 gem "tty-prompt"
 gem "pastel"
 gem "gemoji"
+gem "highline"
 

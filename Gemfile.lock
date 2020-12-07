@@ -18,6 +18,7 @@ GEM
     faker (2.15.1)
       i18n (>= 1.6, < 2)
     gemoji (3.0.1)
+    highline (2.0.3)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -66,6 +67,7 @@ DEPENDENCIES
   activerecord (~> 5.2)
   faker
   gemoji
+  highline
   pastel
   pry
   require_all

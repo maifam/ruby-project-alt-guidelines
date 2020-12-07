@@ -18,7 +18,8 @@ class CommandLine
     
     def greet
         system 'clear' 
-        #signin_sound_effect
+        # signin_sound_effect
+        puts ":muscle:" 
         puts typing_effect(pastel.red("
         ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗    ████████╗ ██████╗     ██╗  ██╗ ██████╗ ███╗   ███╗███████╗███████╗██╗████████╗
         ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝    ╚══██╔══╝██╔═══██╗    ██║  ██║██╔═══██╗████╗ ████║██╔════╝██╔════╝██║╚══██╔══╝
@@ -183,7 +184,7 @@ class CommandLine
     end
 
     def log_out
-        puts "Great session today, #{user.username}!!!!"
+        flashing_effect("Great session today, #{user.username}!!!!")
         exit
     end 
 

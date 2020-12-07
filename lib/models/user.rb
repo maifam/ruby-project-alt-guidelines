@@ -1,7 +1,16 @@
+# require 'highline/import'
+
 class User < ActiveRecord::Base
 
     has_many :sessions
     has_many :programs, through: :sessions
+
+    attr_reader :pastel
+
+    def initialize
+        # @prompt = TTY::Prompt.new
+        @pastel = Pastel.new
+    end
 
     def self.login_user
         puts "Please enter your username"
@@ -14,9 +23,9 @@ class User < ActiveRecord::Base
             puts "You have to enter something for a username!"
             self.login_user 
         else
-            puts "Please enter your password"
-            pass_word = gets.chomp
-            passWord = User.find_by(password: pass_word)
+            puts 'Please enter your password:'
+            passWord = gets.chomp
+            passWord = User.find_by(password: passWord)
             if passWord == nil 
                 puts "Wrong password, please try to log in again"
                 self.login_user
@@ -39,21 +48,33 @@ class User < ActiveRecord::Base
             self.register_user
         else 
             puts "Please enter a password"
-            pass_word = gets.chomp
-            if pass_word.length == 0
+            passWord = gets.chomp
+            if passWord.length == 0
                 puts "Invalid Password!"
                 self.register_user
             else
-                User.create(username: user_name, password: pass_word)
+                User.create(username: user_name, password: passWord)
             end
         end 
     end
     
     def show_past_sessions
-        puts "These are your past workout sessions, #{self.username}!"
+        
+        flashing_effect("These are your past workout sessions, #{self.username}!")
         puts
         self.sessions.each_with_index do |session, idx|
             puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}"
         end
+    end
+
+    def flashing_effect(string)
+        5.times do
+            print "\r#{ string }"
+            sleep 0.25
+            print "\r#{ ' ' * string.size }\r" 
+            sleep 0.5
+          end
+          print ""
+          print string
     end
 end 
