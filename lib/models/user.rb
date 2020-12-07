@@ -1,4 +1,5 @@
 require 'highline/import'
+
 class User < ActiveRecord::Base
 
     has_many :sessions

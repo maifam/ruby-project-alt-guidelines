@@ -39,6 +39,15 @@ class CommandLine
         end 
     end 
 
+    def change_passWord
+        puts "Enter a new password: "
+        new_password = gets.chomp
+        user.update(password: new_password)
+        puts "Your password has been updated!"
+        sleep(3)
+        home_page
+    end 
+
     def login 
         User.login_user
     end 
@@ -56,6 +65,7 @@ class CommandLine
             menu.choice "Browse Programs by Difficulty Level", -> {browse_difficulty}
             menu.choice "See My Previous Sessions", -> {see_previous_sessions}
             menu.choice "Log out", -> {log_out}
+            menu.choice "Change My Password", -> {change_passWord}
             menu.choice "Delete My Account", -> {delete_account}
         end 
     end 
