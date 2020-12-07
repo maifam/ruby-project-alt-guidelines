@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
         flashing_effect("Your past workout sessions, #{self.username} 💪")
         puts
         self.sessions.each_with_index do |session, idx|
+<<<<<<< HEAD
             typing_effect("#{idx + 1}) #{session.program.name} for a total of #{session.duration} minutes on #{session.time.asctime}")
         end
     end
@@ -70,6 +71,17 @@ class User < ActiveRecord::Base
           end
           print ""
           print string
+    end
+
+    def typing_effect(string)
+        string.split("").each do |c|
+            print c 
+            sleep(0.0047)
+=======
+            typing_effect("#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}")
+>>>>>>> a70b9981dac65569727b00848e966c1d6d431b33
+        end
+        puts ""
     end
 
     def typing_effect(string)
