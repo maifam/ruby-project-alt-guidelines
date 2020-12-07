@@ -7,15 +7,29 @@ class CommandLine
         @prompt = TTY::Prompt.new
         @pastel = Pastel.new
     end 
-
-    def greet                                           
-        system 'clear'
-        greeting = "Welcome to HOMEFit!"
-        puts greeting.center(65)
+    
+    def signin_sound_effect
+        pid = fork{ exec 'afplay', 'gym_sound_effect.mp3'}
+    end 
+    
+    def pastel
+        pastel = Pastel.new
+    end
+    
+    def greet
+        system 'clear' 
+        #signin_sound_effect
+        puts typing_effect(pastel.red("
+        ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗    ████████╗ ██████╗     ██╗  ██╗ ██████╗ ███╗   ███╗███████╗███████╗██╗████████╗
+        ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝    ╚══██╔══╝██╔═══██╗    ██║  ██║██╔═══██╗████╗ ████║██╔════╝██╔════╝██║╚══██╔══╝
+        ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗         ██║   ██║   ██║    ███████║██║   ██║██╔████╔██║█████╗  █████╗  ██║   ██║   
+        ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝         ██║   ██║   ██║    ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██╔══╝  ██║   ██║   
+        ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗       ██║   ╚██████╔╝    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██║     ██║   ██║   
+         ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝       ╚═╝    ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝   ╚═╝"))
     end 
 
     def login_or_register
-        puts
+        puts ""
         prompt.select("Do you want to login or register?") do |menu|
             menu.choice "Login", -> {login}
             menu.choice "Register", -> {register}
@@ -183,5 +197,24 @@ class CommandLine
         else
             home_page
         end
+    end
+
+    def typing_effect(string)
+        string.split("").each do |c|
+            print c 
+            sleep(0.0047)
+        end
+        puts ""
+    end
+    
+    def flashing_effect(string)
+        5.times do
+            print "\r#{ string }"
+            sleep 0.25
+            print "\r#{ ' ' * string.size }\r" 
+            sleep 0.5
+          end
+          print ""
+          print string
     end
 end 
