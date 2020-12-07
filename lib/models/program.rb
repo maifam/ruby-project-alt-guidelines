@@ -18,16 +18,16 @@ class Program < ActiveRecord::Base
         Program.all.find { |prog| prog.name == "Advanced HIIT"}
     end 
 
-    def self.beginner_yoga_session 
-        Program.all.find { |prog| prog.name == "Beginner Yoga"}
+    def self.beginner_pilates_session 
+        Program.all.find { |prog| prog.name == "Beginner Pilates"}
     end 
 
-    def self.intermediate_yoga_session 
-        Program.all.find { |prog| prog.name == "Intermediate Yoga"}
+    def self.intermediate_pilates_session 
+        Program.all.find { |prog| prog.name == "Intermediate Pilates"}
     end 
 
-    def self.advanced_yoga_session 
-        Program.all.find { |prog| prog.name == "Advanced Yoga"}
+    def self.advanced_pilates_session 
+        Program.all.find { |prog| prog.name == "Advanced Pilates"}
     end 
 
     def self.beginner_weight_session 
@@ -43,7 +43,5 @@ class Program < ActiveRecord::Base
     end 
 
 end 
-
-###  This code will determine the argument for #add_workout ### beginner_hiit = Program.all.find { |prog| prog.name == "Beginner HIIT"}
 
     
