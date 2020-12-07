@@ -53,7 +53,15 @@ class User < ActiveRecord::Base
         puts "These are your past workout sessions, #{self.username}!"
         puts
         self.sessions.each_with_index do |session, idx|
-            puts "#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}"
+            typing_effect("#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}")
         end
+    end
+
+    def typing_effect(string)
+        string.split("").each do |c|
+            print c 
+            sleep(0.0047)
+        end
+        puts ""
     end
 end 
