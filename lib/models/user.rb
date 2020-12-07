@@ -1,4 +1,3 @@
-# require 'highline/import'
 
 class User < ActiveRecord::Base
 
@@ -71,15 +70,6 @@ class User < ActiveRecord::Base
           end
           print ""
           print string
-    end
-
-    def typing_effect(string)
-        string.split("").each do |c|
-            print c 
-            sleep(0.0047)
-            typing_effect("#{idx + 1}) Previously, you did a(n) #{session.program.name} for a total of #{session.duration} minutes on #{session.time}")
-        end
-        puts ""
     end
 
     def typing_effect(string)
