@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
             passWord = User.find_by(password: passWord)
             if passWord == nil 
                 puts "Wrong password, please try to log in again"
+                sleep(2)
                 self.login_user
             else 
                 passWord
@@ -44,6 +45,7 @@ class User < ActiveRecord::Base
             passWord = ask("Enter password: ") { |q| q.echo = "*" }
             if passWord.length == 0
                 puts "Invalid Password!"
+                sleep(2)
                 self.register_user
             else
                 User.create(username: user_name, password: passWord)
