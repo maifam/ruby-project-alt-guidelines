@@ -18,7 +18,7 @@ class CommandLine
     
     def greet
         system 'clear' 
-        #signin_sound_effect
+        signin_sound_effect
         emojis = "💪" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" +  "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "\u{1f44a}" + "     " + "\u{1f3cb}" + "     " + "\u{1f44a}" + "     " + "\u{1f3c3}" + "     " + "💪"
         puts emojis.center(150)
         puts typing_effect(pastel.red("
@@ -45,7 +45,12 @@ class CommandLine
 
     def register
         User.register_user
-    end 
+    end
+    
+    # def update_that_username
+    #     User.update_username
+    #     home_page
+    # end
 
     def home_page
         user.reload 
@@ -57,6 +62,7 @@ class CommandLine
             menu.choice "See My Previous Sessions", -> {see_previous_sessions}
             menu.choice "Log out", -> {log_out}
             menu.choice "Delete My Account", -> {delete_account}
+            menu.choice "Update Username", -> {update_that_username}
         end 
     end 
 
@@ -220,4 +226,6 @@ class CommandLine
           print ""
           print string
     end
+
+    
 end 

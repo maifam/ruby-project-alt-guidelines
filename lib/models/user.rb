@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
     has_many :sessions
     has_many :programs, through: :sessions
 
+    attr_accessor :username
+
 
     def self.login_user
         system 'clear'
@@ -77,4 +79,41 @@ class User < ActiveRecord::Base
         end
         puts ""
     end
+
+
+
+
+
+
+    # def self.update_username
+    #     system "clear"
+    #     puts "Ok, let's change your username"
+    #     puts "Please enter a new username now:"
+    #     username = gets.chomp
+    #     self.update(username: username)
+    #     puts "Your username has been updated!"
+    #     sleep 1
+    #     #home_page
+    # end
+
+
+    
+    # def change_username
+    #     system 'clear'
+    #     puts "Ok, #{user.username  username}, please enter a new username."
+    #     answer = gets.chomp
+
+    #     until !User.find_by(username: answer) do
+    #         puts "Sorry, that username is already taken. Please enter another USERNAME."
+    #         answer = gets.chomp
+    #             if User.find_by(username: answer)
+    #                 puts "Sorry, that username is also taken. Please enter another USERNAME."
+    #                 answer = gets.chomp
+    #             end 
+    #     end
+              
+    #     user.update(username: answer)
+    #     puts "Thank you, #{user.username}. Your USERNAME has been updated." 
+    # end
+
 end 
